@@ -41,8 +41,11 @@ const SolutionSection = () => {
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
             Meet your <span className="bg-gradient-hero bg-clip-text text-transparent">AI Growth Co-Founder</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
-            GrowthGenius doesn't just give you generic advice. It becomes your strategic partner, analyzing your specific situation and guiding you step-by-step to profitable growth.
+          <p className="text-xl text-muted-foreground max-w-4xl mx-auto mb-4">
+            Instead of struggling alone, imagine having a seasoned growth expert who knows exactly what to do next.
+          </p>
+          <p className="text-lg text-primary-glow font-medium">
+            GrowthGenius analyzes your specific situation and guides you step-by-step to profitable growth.
           </p>
         </div>
         
