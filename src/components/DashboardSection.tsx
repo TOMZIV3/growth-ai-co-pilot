@@ -1,28 +1,28 @@
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle, TrendingUp, Users, Target } from "lucide-react";
-import dashboardMockup from "@/assets/dashboard-mockup.jpg";
+import realisticDashboard from "@/assets/realistic-dashboard.jpg";
 
 const DashboardSection = () => {
   const features = [
     {
       icon: <Target className="w-5 h-5" />,
-      title: "Growth Channels Chosen",
-      description: "AI selects the 3-4 channels that will work best for your specific product and audience"
+      title: "Smart Channel Selection",
+      description: "AI analyzed 50+ channels and chose Reddit (87% engagement), Email (23% open rate), and Product Hunt for your SaaS"
     },
     {
       icon: <CheckCircle className="w-5 h-5" />,
-      title: "Your Next 3 Tasks", 
-      description: "Clear, actionable tasks with deadlines. No overwhelm, just focused execution"
+      title: "Specific Daily Actions", 
+      description: "\"Post case study in r/SaaS tomorrow 2pm EST\" - not vague advice, but exact tasks with timing"
     },
     {
       icon: <TrendingUp className="w-5 h-5" />,
-      title: "Live Campaign Feedback",
-      description: "Real-time analysis of what's working, what's not, and what to adjust immediately"
+      title: "Real Performance Data",
+      description: "Track 1,247 monthly visitors (+47% this week), 234 email subscribers, 89 Reddit upvotes - all in real-time"
     },
     {
       icon: <Users className="w-5 h-5" />,
-      title: "Community Intelligence",
-      description: "Discovers new communities and trending discussions where your audience gathers"
+      title: "Trending Opportunity Alerts",
+      description: "\"r/entrepreneur trending: 'startup validation' - post opportunity detected\" - never miss viral moments"
     }
   ];
 
@@ -46,8 +46,8 @@ const DashboardSection = () => {
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-primary rounded-2xl blur-xl opacity-30 animate-pulse"></div>
             <img 
-              src={dashboardMockup} 
-              alt="GrowthGenius dashboard showing growth channels, tasks, and campaign feedback"
+              src={realisticDashboard} 
+              alt="GrowthGenius dashboard showing real metrics: 1,247 monthly visitors, specific tasks like 'Post in r/SaaS tomorrow 2pm', and live channel performance"
               className="relative z-10 rounded-2xl shadow-2xl border border-primary/20"
             />
             
@@ -55,12 +55,12 @@ const DashboardSection = () => {
             <div className="absolute -top-4 -left-4 bg-success text-success-foreground px-4 py-2 rounded-lg shadow-lg font-semibold">
               <div className="flex items-center gap-2">
                 <TrendingUp className="w-4 h-4" />
-                +47% growth this week
+                1,247 visitors this month
               </div>
             </div>
             
             <div className="absolute -bottom-4 -right-4 bg-primary text-primary-foreground px-4 py-2 rounded-lg shadow-lg font-semibold">
-              3 new tasks ready
+              Post in r/SaaS tomorrow 2pm
             </div>
           </div>
           
@@ -80,7 +80,7 @@ const DashboardSection = () => {
             
             <div className="mt-8 p-6 bg-primary/10 border border-primary/20 rounded-xl">
               <p className="text-primary-glow font-medium">
-                <strong>No more tab-switching chaos.</strong> Everything you need to grow is in one place, updated in real-time, and optimized for your success.
+                <strong>This is your growth command center.</strong> Real metrics, specific tasks, trending opportunities - everything you need to grow from 0 to $10k MRR in one intelligent dashboard.
               </p>
             </div>
           </div>
