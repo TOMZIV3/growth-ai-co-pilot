@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
-import heroDashboard from "@/assets/hero-dashboard.jpg";
+import heroDashboard from "@/assets/hero-dashboard-realistic.jpg";
 
 const HeroSection = () => {
   return (
@@ -62,7 +62,7 @@ const HeroSection = () => {
             <div className="absolute inset-0 bg-gradient-primary rounded-2xl blur-xl opacity-30 animate-pulse"></div>
             <img 
               src={heroDashboard} 
-              alt="GrowthGenius AI Dashboard showing marketing recommendations"
+              alt="GrowthGenius dashboard showing real growth metrics: 1,247 monthly visitors, 22% email open rate, specific tasks like 'Post in r/SaaS tomorrow 2pm', and live AI monitoring of channel performance"
               className="relative z-10 rounded-2xl shadow-2xl border border-primary/20"
             />
           </div>
