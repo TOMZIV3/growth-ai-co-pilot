@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Clock, Sparkles } from "lucide-react";
+import WaitlistDialog from "./WaitlistDialog";
 
 const CTASection = () => {
   const benefits = [
@@ -48,10 +49,12 @@ const CTASection = () => {
           
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button variant="hero" size="xl" className="group">
-              Join the Waitlist
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
+            <WaitlistDialog>
+              <Button variant="hero" size="xl" className="group">
+                Join the Waitlist
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </WaitlistDialog>
             <Button variant="outline" size="xl">
               See a Sample Plan
             </Button>
