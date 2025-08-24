@@ -1,79 +1,68 @@
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
+import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { Resend } from "npm:resend@2.0.0";
 
-const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')
+const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type",
+};
+
+interface WaitlistNotificationRequest {
+  name?: string;
+  email: string;
+  company?: string;
+  interest_level: number;
 }
 
-serve(async (req) => {
+const handler = async (req: Request): Promise<Response> => {
   // Handle CORS preflight requests
-  if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders })
+  if (req.method === "OPTIONS") {
+    return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const { name, email, company, interest_level } = await req.json()
+    const { name, email, company, interest_level }: WaitlistNotificationRequest = await req.json();
 
-    // Send email notification to admin
-    const emailData = {
-      from: 'Waitlist <notifications@yourdomain.com>',
-      to: ['tomzeev@gmail.com'],
-      subject: '🎉 New Waitlist Signup!',
+    console.log("Sending waitlist notification for:", { name, email, company, interest_level });
+
+    const emailResponse = await resend.emails.send({
+      from: "AI GTM SAAS <onboarding@resend.dev>",
+      to: ["tomzeev@gmail.com"],
+      subject: "New Waitlist Signup!",
       html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #7c3aed;">New Waitlist Signup</h2>
-          
-          <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <p><strong>Name:</strong> ${name || 'Not provided'}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Company:</strong> ${company || 'Not provided'}</p>
-            <p><strong>Interest Level:</strong> ${interest_level}/10</p>
-            <p><strong>Signed up:</strong> ${new Date().toLocaleString()}</p>
-          </div>
-          
-          <p>View all entries in your <a href="https://your-domain.com/admin" style="color: #7c3aed;">admin panel</a>.</p>
-        </div>
-      `
-    }
+        <h1>New Waitlist Signup!</h1>
+        <p>Someone just joined your waitlist:</p>
+        <ul>
+          <li><strong>Email:</strong> ${email}</li>
+          ${name ? `<li><strong>Name:</strong> ${name}</li>` : ''}
+          ${company ? `<li><strong>Company:</strong> ${company}</li>` : ''}
+          <li><strong>Interest Level:</strong> ${interest_level}/10</li>
+        </ul>
+        <p>Check your admin panel to see all waitlist entries!</p>
+      `,
+    });
 
-    const res = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
+    console.log("Email sent successfully:", emailResponse);
+
+    return new Response(JSON.stringify({ success: true, emailResponse }), {
+      status: 200,
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+        ...corsHeaders,
       },
-      body: JSON.stringify(emailData),
-    })
-
-    if (!res.ok) {
-      const error = await res.text()
-      console.error('Resend API error:', error)
-      throw new Error('Failed to send email')
-    }
-
-    const result = await res.json()
-    console.log('Email sent successfully:', result)
-
+    });
+  } catch (error: any) {
+    console.error("Error in send-waitlist-notification function:", error);
     return new Response(
-      JSON.stringify({ success: true, emailId: result.id }),
+      JSON.stringify({ error: error.message }),
       {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        status: 200,
-      },
-    )
-  } catch (error) {
-    console.error('Error in send-waitlist-notification function:', error)
-    return new Response(
-      JSON.stringify({ 
-        error: error.message,
-        success: false 
-      }),
-      {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         status: 500,
-      },
-    )
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      }
+    );
   }
-})
+};
+
+serve(handler);

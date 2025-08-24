@@ -5,7 +5,16 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Download, Search, Users, TrendingUp, Calendar, Star } from "lucide-react";
-import { supabase, type WaitlistEntry } from "@/lib/supabase";
+import { supabase } from "@/integrations/supabase/client";
+
+type WaitlistEntry = {
+  id: string;
+  email: string;
+  name?: string;
+  company?: string;
+  interest_level: number;
+  created_at: string;
+};
 import { useToast } from "@/hooks/use-toast";
 
 const Admin = () => {
