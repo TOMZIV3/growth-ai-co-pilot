@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Download, Search, Users, TrendingUp, Calendar, Star } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 type WaitlistEntry = {
   id: string;
@@ -15,7 +16,6 @@ type WaitlistEntry = {
   interest_level: number;
   created_at: string;
 };
-import { useToast } from "@/hooks/use-toast";
 
 const Admin = () => {
   const [entries, setEntries] = useState<WaitlistEntry[]>([]);
